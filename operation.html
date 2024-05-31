@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutri Care</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        .navbar {
+            background-color: #4CAF50;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+        }
+        .company-name {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .navbar-buttons {
+            display: flex;
+            align-items: center;
+        }
+        .navbar-buttons a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .content {
+            display: none;
+            padding: 20px;
+        }
+        .active {
+            display: block;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 0;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .profile-container, .about-us, .diet-plans, .help, .services, .join-us {
+            padding: 20px;
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .profile-container h1, .about-us h1, .diet-plans h1, .help h1, .services h1, .join-us h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        .diet-plans .diet-plan {
+            margin-bottom: 20px;
+        }
+        .diet-plans .diet-plan h3 {
+            color: #4CAF50;
+            font-size: 20px;
+        }
+        .diet-plans .diet-plan p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .scrollable {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+  <div class="company-name">Nutri<span style="color: #f8f8f8;">Care</span></div>
+  <div class="navbar-buttons">
+    <a onclick="showSection('home')">Home</a>
+    <a onclick="showSection('about-us')">About Us</a>
+    <a onclick="showSection('diet-plans')">Diet Plans</a>
+    <a onclick="showSection('help')">Help</a>
+    <a onclick="showSection('services')">Services</a>
+    <a onclick="showSection('join-us')">Join Us</a>
+  </div>
+</div>
+
+<div id="home" class="content active">
+    <div class="left-side">
+        <div id="nutraText" class="nutra-text">NUTRA</div>
+        <div id="loginContainer" class="form-container hidden">
+            <form id="loginForm" onsubmit="return validateLoginForm()">
+                <h2>Login Form</h2>
+                <label for="login_email">Email:</label>
+                <input type="email" id="login_email" name="login_email" required>
+                
+                <label for="login_password">Password:</label>
+                <input type="password" id="login_password" name="login_password" required>
+                
+                <p><a href="#forgot">Forgot Password?</a></p>
+                
+                <div class="terms-checkbox">
+                    <input type="checkbox" id="not_robot" name="not_robot" required>
+                    <label for="not_robot" class="terms-label">I am not a robot</label>
+                </div>
+                <input type="submit" value="Login">
+            </form>
+        </div>
+
+        <div id="registrationContainer" class="form-container hidden">
+            <form id="registrationForm" onsubmit="return validateForm()">
+                <h2>Registration Form</h2>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+                
+                <label for="referral_code">Referral Code:</label>
+                <input type="text" id="referral_code" name="referral_code">
+                
+                <div class="terms-checkbox">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms" class="terms-label">Terms and conditions</label>
+                </div>
+                
+                <input type="submit" value="Register">
+            </form>
+        </div>
+
+        <div class="buttons-container" id="buttonsContainer">
+            <button onclick="showForm('login')">Login</button>
+            <button onclick="showForm('register')">Register</button>
+        </div>
+    </div>
+</div>
+
+<div id="profile" class="content">
+    <div class="profile-container">
+        <h1>PROFILE</h1>
+        <form class="profile-form">
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" required>
+            
+            <label for="middle_name">Middle Name:</label>
+            <input type="text" id="middle_name" name="middle_name">
+            
+            <label for="surname">Surname:</label>
+            <input type="text" id="surname" name="surname" required>
+            
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dob" required>
+            
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required>
+            
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+            
+            <label for="marital_status">Marital Status:</label>
+            <input type="text" id="marital_status" name="marital_status">
+            
+            <label for="height">Height:</label>
+            <input type="number" id="height" name="height" required>
+            
+            <label for="weight">Weight:</label>
+            <input type="number" id="weight" name="weight" required>
+            
+            <label for="bmi">BMI:</label>
+            <input type="number" id="bmi" name="bmi">
+            
+            <label for="color">Color:</label>
+            <input type="text" id="color" name="color">
+            
+            <label for="habits">Habits:</label>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="habits" value="smoking"> Smoking</label>
+                <label><input type="checkbox" name="habits" value="drinking"> Drinking</label>
+                <label><input type="checkbox" name="habits" value="exercise"> Exercise</label>
+                <label><input type="checkbox" name="habits" value="sleeping"> Sleeping</label>
+            </div>
+            
+            <label for="occupation">Occupation (Shift):</label>
+            <input type="text" id="occupation" name="occupation">
+            
+            <label for="diseases">Diseases and Disabilities:</label>
+            <input type="text" id="diseases" name="diseases">
+            
+            <label for="medications">Past/Present Medications:</label>
+            <input type="text" id="medications" name="medications">
+            
+            <label for="goal">Goal:</label>
+            <input type="text" id="goal" name="goal">
+            
+            <label for="food_specifications">Specifications on Food:</label>
+            <input type="text" id="food_specifications" name="food_specifications">
+            
+            <label for="region">Region:</label>
+            <input type="text" id="region" name="region">
+            
+            <label for="profile_picture">Profile Picture:</label>
+            <input type="file" id="profile_picture" name="profile_picture">
+            
+            <label for="mobile_number">Mobile Number:</label>
+            <input type="text" id="mobile_number" name="mobile_number" required>
+            
+            <input type="submit" value="Save Profile">
+        </form>
+    </div>
+</div>
+
+<div id="about-us" class="content">
+    <div class="about-us">
+        <h1>About Us</h1>
+        <p><strong>NUTRA FOUNDERS DILEEP AND TARUN 2023-2024</strong></p>
+        <p><strong>From Head Quarters Tanuku, Andhra Pradesh 534211, India</strong></p>
+        <p><strong>Phone: +91xxxxxxxxxx</strong></p>
+    </div>
+</div>
+
+<div id="diet-plans" class="content">
+    <div class="diet-plans scrollable">
+        <h1>Diet Plans</h1>
+        <div class="diet-plan">
+            <h3>Plan 1: Weight Loss</h3>
+            <p>Breakfast: Oatmeal with fruits<br>Lunch: Grilled chicken salad<br>Dinner: Steamed vegetables with quinoa</p>
+        </div>
+        <div class="diet-plan">
+            <h3>Plan 2: Muscle Gain</h3>
+            <p>Breakfast: Scrambled eggs with spinach<br>Lunch: Salmon with brown rice<br>Dinner: Beef stir-fry with broccoli</p>
+        </div>
+        <div class="diet-plan">
+            <h3>Plan 3: Balanced Diet</h3>
+            <p>Breakfast: Greek yogurt with honey<br>Lunch: Turkey sandwich on whole grain bread<br>Dinner: Chicken breast with mixed greens</p>
+        </div>
+        <div class="diet-plan">
+            <h3>Plan 4: Vegetarian</h3>
+            <p>Breakfast: Smoothie bowl<br>Lunch: Chickpea salad<br>Dinner: Lentil soup with whole grain bread</p>
+        <div class="diet-plan">
+            <h3>Plan 5: Vegan</h3>
+            <p>Breakfast: Avocado toast<br>Lunch: Tofu stir-fry<br>Dinner: Quinoa salad with mixed vegetables</p>
+        </div>
+    </div>
+</div>
+
+<div id="help" class="content">
+    <div class="help">
+        <h1>Help</h1>
+        <p>Contact Customer Care: +91xxxxxxx</p>
+        <p>Mail us at: nutra501@gmail.com</p>
+        <div class="chatbot">
+            <img src="chatbot-icon.png" alt="Chat Bot">
+        </div>
+    </div>
+</div>
+
+<div id="services" class="content">
+    <div class="services">
+        <h1>Services</h1>
+        <p>Please login to see all the services.</p>
+    </div>
+</div>
+
+<div id="join-us" class="content">
+    <div class="join-us">
+        <h1>Join Us</h1>
+        <p>Join us at this incredible journey of weight loss. These are our clients:</p>
+        <ul>
+            <li>Client 1: John Doe, +91xxxxxxxxxx</li>
+            <li>Client 2: Jane Smith, +91xxxxxxxxxx</li>
+            <li>Client 3: Bob Johnson, +91xxxxxxxxxx</li>
+            <li>Client 4: Alice Williams, +91xxxxxxxxxx</li>
+        </ul>
+    </div>
+</div>
+
+<script>
+    function showSection(sectionId) {
+        var sections = document.getElementsByClassName('content');
+        for (var i = 0; i < sections.length; i++) {
+            sections[i].classList.remove('active');
+        }
+        document.getElementById(sectionId).classList.add('active');
+    }
+
+    function showForm(formType) {
+        var loginContainer = document.getElementById('loginContainer');
+        var registrationContainer = document.getElementById('registrationContainer');
+        var buttonsContainer = document.getElementById('buttonsContainer');
+        
+        if (formType === 'login') {
+            loginContainer.classList.remove('hidden');
+            registrationContainer.classList.add('hidden');
+        } else {
+            registrationContainer.classList.remove('hidden');
+            loginContainer.classList.add('hidden');
+        }
+        buttonsContainer.classList.add('hidden');
+    }
+
+    function validateForm() {
+        var password = document.getElementById('password').value;
+        var confirmPassword = document.getElementById('confirm_password').value;
+        if (password !== confirmPassword) {
+            alert("Passwords do not match");
+            return false;
+        }
+        // Assuming the registration is successful, redirect to the profile page
+        showSection('profile');
+        return false;
+    }
+
+    function validateLoginForm() {
+        var notRobot = document.getElementById("not_robot").checked;
+        if (!notRobot) {
+            alert("Please confirm you are not a robot");
+            return false;
+        }
+        // Assuming the login is successful
+        showSection('profile');
+        return false;
+    }
+</script>
+
+</body>
+</html>
